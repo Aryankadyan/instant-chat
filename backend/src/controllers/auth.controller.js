@@ -23,7 +23,7 @@ export const signup = async (req, res)=>{
         const newUser = new User({
             fullName,
             email,
-            password: hashedPassword
+            password: hashedPassword,
         })
 
         if(newUser){
@@ -41,7 +41,7 @@ export const signup = async (req, res)=>{
             res.status(400).json({message: 'User not created'})
         }
     }catch(error){
-        console.log("Error in signup", error.message)
+        console.log("Error in signup controller", error.message)
         res.status(500).json({message: 'Server Error'})
  
     }
@@ -88,13 +88,13 @@ export const updateProfile = async (req, res)=>{
         }
         
      const uploadResponse = await cloudinary.uploader.upload(profilePic)
-     const updateUser = await User.findByIdAndUpdate(
+     const updatedUser = await User.findByIdAndUpdate(
         userId,
         {profilePic: uploadResponse.secure_url},
         {new: true}
      );
 
-     res.status(200).json(updateUser)
+     res.status(200).json(updatedUser)
 
     } catch (error) {
         console.log("Error in updateProfile:", error)
@@ -108,6 +108,6 @@ export const checkAuth = (req, res)=>{
   } catch (error) {
     console.log("Error in checkAuth controller", error.message)
     res.status(500).json({message: 'Server Error'})
-    
+     
   }
 }

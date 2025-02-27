@@ -8,15 +8,15 @@ import { useAuthStore } from "../store/useAuthStore"
 import { formatMessageTime } from "../library/utils"
 
 const ChatContainer = () => {
-  const {messages, getMessages, isMessagesLoading, selectedUser, subscibeToMessages, unsubscribeFromMessages} = useChatStore()
+  const {messages, getMessages, isMessagesLoading, selectedUser, subscribeToMessages, unsubscribeFromMessages} = useChatStore()
   const {authUser} = useAuthStore()
   const messageEndRef = useRef(null)
 
 useEffect(()=>{
   getMessages(selectedUser._id)
-  subscibeToMessages()
+  subscribeToMessages()
   return () => unsubscribeFromMessages()
-},[selectedUser._id, getMessages, subscibeToMessages, unsubscribeFromMessages])
+},[selectedUser._id, getMessages, subscribeToMessages, unsubscribeFromMessages])
  
 useEffect(()=>{
   if(messageEndRef.current && messages){
@@ -24,7 +24,7 @@ messageEndRef.current.scrollIntoView({behaviour: "smooth"})
   }
 }, [messages])
 
-  if(isMessagesLoading) 
+  if(isMessagesLoading) {
     return(
   <div className="flex-1 flex flex-col overflow-auto">
     <ChatHeader/>
@@ -32,12 +32,13 @@ messageEndRef.current.scrollIntoView({behaviour: "smooth"})
     <MessageInput/>
   </div>
   )
+}
   
 
   return (
     <div className="flex-1 flex flex-col overflow-auto">
       <ChatHeader/>
-<div className="flex-1 overflow-auto p-5 space-y-4">
+<div className="flex-1 overflow-y-auto p-5 space-y-4">
   {messages.map((message)=>(
     <div 
     key={message._id}

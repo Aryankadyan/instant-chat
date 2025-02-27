@@ -48,7 +48,7 @@ login: async(data)=>{
   try {
     const res = await axiosInstance.post("/auth/login", data)
     set({authUser: res.data})
-    toast.success("Hurrah!")
+    toast.success("Hurrah! Logged in successfully")
 
     get().connectSocket()
   } catch (error) {
@@ -77,7 +77,7 @@ updateProfile: async(data)=>{
         set({authUser: res.data})
         toast.success("Profile updated successfully")
     }catch(error){
-        console.log("Error in updating Profile:", error)
+        console.log("Error in update Profile:", error)
         toast.error(error.response.data.message)
     }finally{
         set({isUpdatingProfile: false})
