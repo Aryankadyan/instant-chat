@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "3.-realtime-chat-app": "file:..",
     "axios": "^1.7.9",
     "lucide-react": "^0.475.0",
     "react": "^19.0.0",
